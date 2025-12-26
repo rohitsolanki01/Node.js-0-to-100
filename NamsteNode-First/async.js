@@ -28,3 +28,4 @@ function multiplications(x, y) {
 
 const c = multiplications(a, b);
 console.log(c);
+
