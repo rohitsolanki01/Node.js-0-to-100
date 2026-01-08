@@ -5,16 +5,20 @@ const PORT = 8080;
 
 
 
-
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-})
-
+app.get("/test" , (req,res) => {
+    res.send("Test Route for  the Server")
+});
 
 
-app.get("/profile", (req, res) => {
-    res.send("Profile is a profle page of the user");
-})
+app.get("/user/:userId/:name/:nickname",(req,res) => {
+    console.log(req.params);                
+    res.send({
+        firstName : "Rohit",
+        lastName : "Solnaki",
+        city : "Wadhwan"
+    })
+});
+
 
 
 
