@@ -1,27 +1,34 @@
 import express from "express";
 const app = express();
-
 const PORT = 8080;
-
-import {adminAuth , userAuth} from "./middlewares/authMiddleware.js" 
-
-app.use("/admin" , adminAuth);
-
-
-app.get("/admin/getAllData" , (req,res) => {
-    res.send("Admin getAllData")
-})
-
-app.delete("/admin/deleteUser" , (req,res) => {
-    res.send("Admin  is delete User")
-})
-
-app.get("/user" , userAuth, (req,res) => {
-    res.send("User is get all Data")
-})
+import connectDb from "./config/database.js"
+import User from "./models/userModel.js";
 
 
 
-app.listen(PORT , () => {
-    console.log(`Server is running on port ${PORT}`);
+app.post("/signUp" , async(req,res) => {
+   
+    const user = new User({
+        firstName : "Rohit",
+        lastName : "Solanki",
+        email : "rohit@gmail.com",
+        password : "123456",
+        age : 22,
+        gender : "Male"
+    })
+
+    await user.save();
+
+    res.send("User registered successfully");
+});
+
+
+
+connectDb().then( () => {
+    console.log("Mongoose connection successful");
+    app.listen(PORT , () => {
+        console.log(`Server is running on port ${PORT}`);
+    })
+}).catch((err) => {
+    console.log(err, "Mongoose connection error");
 })
